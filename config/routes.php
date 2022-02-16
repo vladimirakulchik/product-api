@@ -38,6 +38,20 @@ use Psr\Container\ContainerInterface;
  */
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->get('/', App\Handler\HomePageHandler::class, 'home');
-    $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
+    $config = $container->get('config');
+
+    if (empty($config['routes'])) {
+        return;
+    }
+
+    foreach ($config['routes'] as $route) {
+        $app->route(
+            $route['path'],
+            $route['middleware'],
+            $route['allowed_routes'],
+            $route['name']
+        );
+    }
+
+    $app->get('/home', App\Handler\HomePageHandler::class, 'home');
 };

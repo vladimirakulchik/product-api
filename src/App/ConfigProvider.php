@@ -4,37 +4,44 @@ declare(strict_types=1);
 
 namespace App;
 
-/**
- * The configuration provider for the App module
- *
- * @see https://docs.laminas.dev/laminas-component-installer/
- */
+use Fig\Http\Message\RequestMethodInterface;
+use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
+
 class ConfigProvider
 {
-    /**
-     * Returns the configuration array
-     *
-     * To add a bit of a structure, each section is defined in a separate
-     * method which returns an array with its configuration.
-     */
     public function __invoke(): array
     {
         return [
+            ConfigAbstractFactory::class => $this->getAbstractFactoryConfig(),
             'dependencies' => $this->getDependencies(),
+            'routes' => $this->getRoutes(),
         ];
     }
 
-    /**
-     * Returns the container dependencies
-     */
-    public function getDependencies(): array
+    private function getAbstractFactoryConfig(): array
     {
         return [
-            'invokables' => [
-                Handler\PingHandler::class => Handler\PingHandler::class,
-            ],
-            'factories'  => [
+            Handler\PingHandler::class => [],
+        ];
+    }
+
+    private function getDependencies(): array
+    {
+        return [
+            'factories' => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+            ],
+        ];
+    }
+
+    private function getRoutes(): array
+    {
+        return [
+            [
+                'allowed_routes' => [RequestMethodInterface::METHOD_GET],
+                'middleware' => Handler\PingHandler::class,
+                'path' => '/',
+                'name' => 'index',
             ],
         ];
     }
