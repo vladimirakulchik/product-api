@@ -52,6 +52,4 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
             $route['name']
         );
     }
-
-    $app->get('/home', App\Handler\HomePageHandler::class, 'home');
 };

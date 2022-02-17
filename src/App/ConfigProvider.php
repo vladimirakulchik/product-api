@@ -28,9 +28,7 @@ class ConfigProvider
     private function getDependencies(): array
     {
         return [
-            'factories' => [
-                Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-            ],
+            'factories' => [],
         ];
     }
 
