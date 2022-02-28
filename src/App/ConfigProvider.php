@@ -21,14 +21,21 @@ class ConfigProvider
     private function getAbstractFactoryConfig(): array
     {
         return [
-            Handler\PingHandler::class => [],
+            Handler\PingHandler::class => [
+                'db_product',
+            ],
         ];
     }
 
     private function getDependencies(): array
     {
         return [
-            'factories' => [],
+            'abstract_factories' => [
+                ConfigAbstractFactory::class,
+            ],
+            'factories' => [
+                'db_product' => Dal\DbConnectionFactory::class,
+            ],
         ];
     }
 

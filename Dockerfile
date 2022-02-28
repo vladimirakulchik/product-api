@@ -5,7 +5,8 @@ ENV APACHE_DOCUMENT_ROOT /data/app/public
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
-    && a2enmod rewrite
+    && a2enmod rewrite \
+    && docker-php-ext-install pdo_mysql
 
 COPY --from=composer:2.2.6 /usr/bin/composer /usr/bin/composer
 
