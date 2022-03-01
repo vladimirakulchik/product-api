@@ -27,6 +27,7 @@
         "ext-pdo": "*",
         "composer/package-versions-deprecated": "^1.10.99",
         "doctrine/dbal": "^3.3",
+        "doctrine/migrations": "^3.4",
         "laminas/laminas-component-installer": "^2.6",
         "laminas/laminas-config-aggregator": "^1.6",
         "laminas/laminas-diactoros": "^2.7",
