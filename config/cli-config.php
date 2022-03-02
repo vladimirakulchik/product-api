@@ -14,20 +14,20 @@ $config = new ConfigurationArray([
         'Migrations' => 'migrations',
     ],
     'table_storage' => [
-        'table_name' => 'doctrine_migration_versions',
-        'version_column_name' => 'version',
-        'version_column_length' => 1024,
-        'executed_at_column_name' => 'executed_at',
+        'table_name'                 => 'doctrine_migration_versions',
+        'version_column_name'        => 'version',
+        'version_column_length'      => 1024,
+        'executed_at_column_name'    => 'executed_at',
         'execution_time_column_name' => 'execution_time',
     ],
 ]);
 
 $dbalConfig = [
     'driver'   => 'pdo_mysql',
-    'host'     => 'db',
-    'dbname'   => 'initial',
-    'user'     => 'root',
-    'password' => 'r00t',
+    'host'     => $_ENV['DB_PRODUCT_HOST'],
+    'dbname'   => $_ENV['MIGRATION_DBNAME'],
+    'user'     => $_ENV['MIGRATION_USER'],
+    'password' => $_ENV['MIGRATION_PASSWORD'],
 ];
 
 $connection = DriverManager::getConnection($dbalConfig);

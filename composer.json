@@ -1,6 +1,6 @@
 {
     "name": "vova/product-api",
-    "description": "This is an API to provide products data",
+    "description": "This is API to provide products data",
     "type": "project",
     "config": {
         "sort-packages": true,
