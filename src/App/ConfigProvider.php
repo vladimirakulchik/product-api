@@ -13,8 +13,8 @@ class ConfigProvider
     {
         return [
             ConfigAbstractFactory::class => $this->getAbstractFactoryConfig(),
-            'dependencies' => $this->getDependencies(),
-            'routes' => $this->getRoutes(),
+            'dependencies'               => $this->getDependencies(),
+            'routes'                     => $this->getRoutes(),
         ];
     }
 
@@ -33,8 +33,9 @@ class ConfigProvider
             'abstract_factories' => [
                 ConfigAbstractFactory::class,
             ],
-            'factories' => [
-                'db_product' => Dal\DbConnectionFactory::class,
+            'factories'          => [
+                'db_product'         => Dal\DbConnectionFactory::class,
+                Handler\Index::class => Handler\IndexFactory::class,
             ],
         ];
     }
@@ -44,9 +45,16 @@ class ConfigProvider
         return [
             [
                 'allowed_routes' => [RequestMethodInterface::METHOD_GET],
-                'middleware' => Handler\PingHandler::class,
-                'path' => '/',
-                'name' => 'index',
+                'middleware'     => Handler\Index::class,
+                'path'           => '/',
+                'name'           => 'index',
+            ],
+            [
+                'allowed_routes' => [RequestMethodInterface::METHOD_GET],
+                'middleware'     => Handler\PingHandler::class,
+                'path'           => '/products/{productCode: [^/]+}',
+                'name'           => 'ping',
+                'parameters'     => ['productCode'],
             ],
         ];
     }
