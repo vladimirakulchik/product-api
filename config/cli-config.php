@@ -13,7 +13,7 @@ $config = new ConfigurationArray([
     'migrations_paths' => [
         'Migrations' => 'migrations',
     ],
-    'table_storage' => [
+    'table_storage'    => [
         'table_name'                 => 'doctrine_migration_versions',
         'version_column_name'        => 'version',
         'version_column_length'      => 1024,

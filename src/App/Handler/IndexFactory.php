@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Dal;
+namespace App\Handler;
 
-use Doctrine\DBAL\DriverManager;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Mezzio\Helper\UrlHelper;
 
-class DbConnectionFactory implements FactoryInterface
+class IndexFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        $config = $container->get('config');
+        $urlHelper = $container->get(UrlHelper::class);
+        $config    = $container->get('config');
 
-        return DriverManager::getConnection($config['dbal'][$requestedName]);
+        return new Index($urlHelper, $config['routes']);
     }
 }
